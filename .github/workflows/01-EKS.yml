@@ -2,6 +2,10 @@ name: "01-EKS"
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write # Required for OIDC token generation
+  contents: read
+
 jobs:
   Plan:
     uses: subani-in/EKS-ELK-Terraform-v1/.github/workflows/aws_tf_plan.yml@main
