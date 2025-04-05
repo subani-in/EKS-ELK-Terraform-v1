@@ -4,22 +4,22 @@ on:
   workflow_call:
     inputs:
       tf_version:
-        description: 'Specifies version of Terraform to use. e.g: 1.1.0 Default=latest.'
+        description: "Specifies version of Terraform to use. e.g: 1.1.0 Default=latest."
         required: false
         type: string
         default: latest
       gh_environment:
-        description: 'Specifies the GitHub deployment environment.'
+        description: "Specifies the GitHub deployment environment."
         required: false
         type: string
         default: null
     secrets:
       cli_config_credentials_token:
-        description: 'cli config credentials token'
+        description: "cli config credentials token"
         required: true
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
 jobs:
   apply-plan:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
       - name: Terraform Validate
         id: validate
         run: terraform validate
@@ -60,9 +60,9 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::357171621133:role/github-oidc-role
+          role-to-assume: arn:aws:iam::971422698842:role/github-oidc-role
           role-session-name: samplerolesession
-          aws-region: us-west-2
+          aws-region: us-east-2
 
       - name: Print AWS SSM Parameter
         run: aws ssm get-parameter --name=hello_aws-gh-oidc --query Parameter.Value
